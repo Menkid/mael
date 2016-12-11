@@ -20,7 +20,7 @@ public class City {
      */
     public City(String description) throws IllegalArgumentException{
         String[] split = description.split("[,\\[\\]] *");
-        if (split[1].length() != 2 || !split[2].matches("[0-9]+") || !split[3].matches("[0-9]+") || !split[4].matches("[0-9]+")){
+        if (split.length != 5 || split[1].length() != 2 || !split[2].matches("[0-9]+") || !split[3].matches("[0-9]+") || !split[4].matches("[0-9]+")){
             throw new IllegalArgumentException("Illegal format of input string :\n\t" + description);
         }
         name = split[0];

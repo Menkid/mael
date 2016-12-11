@@ -27,6 +27,7 @@ public class City {
         state = split[1];
         pos = new int[]{Integer.parseInt(split[2]), Integer.parseInt(split[3])};
         size = Integer.parseInt(split[4]);
+        connexion = new LinkedHashMap<>();
     }
 
     /*
@@ -46,6 +47,7 @@ public class City {
         this.state = state;
         pos = new int[]{lon, lat};
         this.size = size;
+        connexion = new LinkedHashMap<>();
     }
 
     public String getName() {
@@ -72,9 +74,21 @@ public class City {
      * @param weight Distance between cities
      */
     public void addConnexion(City dest, int weight){
+        if(connexion.containsKey(dest)){
+            throw new IllegalArgumentException(dest.getName() + " already in connexions list");
+        }
         connexion.put(dest, weight);
     }
 
+    public void remConnexion(City dest){
+        connexion.remove(dest);
+    }
+
+    /**
+     * @param dest Destination city
+     * @return     Distance between current city and destination city
+     * @throws NoSuchElementException When no distance is set
+     */
     public int getDistTo(City dest) throws NoSuchElementException {
         if (!connexion.containsKey(dest)) {
             throw new NoSuchElementException(this.name + "->" + dest.name);
@@ -82,12 +96,22 @@ public class City {
         return connexion.get(dest);
     }
 
+    /**
+     * Get the closest city.
+     *
+     * @param ignoreList Ignore those city when looking for closest
+     * @return           Closest city
+     */
     public City getClosest(HashSet<City> ignoreList) {
+        if (ignoreList == null){
+            ignoreList = new HashSet<>(0);
+        }
         int best = Integer.MAX_VALUE;
         City ret = null;
         for (Map.Entry<City, Integer> current : connexion.entrySet()) {
             if (!ignoreList.contains(current.getKey()) && current.getValue() < best){
                 ret = current.getKey();
+                best = current.getValue();
             }
         }
         if (ret == null){

@@ -3,7 +3,7 @@ import com.sun.istack.internal.Nullable;
 import java.util.*;
 
 /**
- * Created by Johan on 10.12.2016.
+ * @author Mael Cattin
  */
 public class City {
     private String name;
@@ -78,6 +78,11 @@ public class City {
             throw new IllegalArgumentException(dest.getName() + " already in connexions list");
         }
         connexion.put(dest, weight);
+        try {
+            dest.addConnexion(this, weight);
+        } catch (IllegalArgumentException ignored){
+
+        }
     }
 
     public void remConnexion(City dest){
@@ -100,7 +105,7 @@ public class City {
      * Get the closest city.
      *
      * @param ignoreList Ignore those city when looking for closest
-     * @return           Closest city
+     * @return           Closest city, null when every connected cities are in ignore list
      */
     public City getClosest(HashSet<City> ignoreList) {
         if (ignoreList == null){
@@ -114,8 +119,20 @@ public class City {
                 best = current.getValue();
             }
         }
-        if (ret == null){
-            throw new NoSuchElementException();
+        return ret;
+    }
+
+    public City getClosestWhiteList(HashSet<City> whiteList) {
+        if (whiteList == null){
+            return null;
+        }
+        int best = Integer.MAX_VALUE;
+        City ret = null;
+        for (Map.Entry<City, Integer> current : connexion.entrySet()){
+            if(whiteList.contains(current.getKey()) && current.getValue() < best){
+                ret = current.getKey();
+                best = current.getValue();
+            }
         }
         return ret;
     }

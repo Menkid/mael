@@ -6,7 +6,7 @@ import org.junit.internal.runners.model.EachTestNotifier;
 import static org.junit.Assert.*;
 
 /**
- * Created by Johan on 11.12.2016.
+ * @author Mael Cattin
  */
 public class CityTest {
     private City myCity;

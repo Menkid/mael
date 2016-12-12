@@ -1,5 +1,5 @@
 /**
- * Created by Johan on 11.12.2016.
+ * @author Mael Cattin
  */
 
 import org.junit.After;
@@ -74,6 +74,14 @@ public class ConnexionTest {
         ignore.add(city0);
         ignore.add(city2);
         assertEquals(city1, myCity.getClosest(ignore));
+    }
+
+    @Test
+    public void getClosestWhiteList() throws Exception {
+        HashSet<City> whiteList = new HashSet<>();
+        whiteList.add(city3);
+        whiteList.add(city2);
+        assertEquals(city2, myCity.getClosestWhiteList(whiteList));
     }
 
     @Test

@@ -122,6 +122,12 @@ public class City {
         return ret;
     }
 
+    /**
+     * Get the closest city.
+     *
+     * @param whiteList Look only for cities in this set
+     * @return          Closest city, null when no connected cities are in whiteList
+     */
     public City getClosestWhiteList(HashSet<City> whiteList) {
         if (whiteList == null){
             return null;

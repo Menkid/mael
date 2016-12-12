@@ -13,8 +13,8 @@ public class MinimumSpanningTree {
 
 
     public static void main(String[] args) throws IOException{
-        writer = new FileWriter("C:\\Users\\Johan\\Desktop\\mael\\SDA-TP10\\out\\MST.out");
-        FileInputStream inStream = new FileInputStream("C:\\Users\\Johan\\Desktop\\mael\\SDA-TP10\\res\\sda_graph.txt");
+        writer = new FileWriter("out/MST.out");
+        FileInputStream inStream = new FileInputStream("res/sda_graph.txt");
         reader = new BufferedReader(new InputStreamReader(inStream));
         citySet = new LinkedHashSet<>();
         parseFile();
@@ -69,6 +69,7 @@ public class MinimumSpanningTree {
         writer.append("Cost: " + cost + "\n");
         writer.flush();
         writer.close();
+        System.out.println("MST built.");
     }
 
     private static City getClosest(HashSet<City> existingTree) {

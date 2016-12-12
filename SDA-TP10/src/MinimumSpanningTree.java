@@ -66,7 +66,7 @@ public class MinimumSpanningTree {
             writer.append(current.getName() + " " + current.getState() + ", " +
                     closest.getName() + " " + closest.getState() + "\n");
         }
-        writer.append("Cost: " + cost);
+        writer.append("Cost: " + cost + "\n");
         writer.flush();
         writer.close();
     }
